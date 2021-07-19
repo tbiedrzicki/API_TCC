@@ -23,7 +23,7 @@ class CreateUsuarioAreaTable extends Migration
             $table->unsignedBigInteger('id_area')-> nullable();
             $table->foreign('id_area')->unsigned()
                     ->references('id')            
-                    ->on('areaInteresse');
+                    ->on('area');
             $table->boolean('ajuda');
             $table->timestamps();
         });
