@@ -26,6 +26,14 @@ $router->group(['middleware' => 'apicheck'], function() use ($router){
     $router->delete('/usuarios/{id}', ['as' => 'usuarios.delete', 'uses' => 'UsuarioController@destroy']);
     
 });
+$router->group(['middleware' => 'apicheck'], function() use ($router){
 
+    $router->get('/areas',['as'=> 'areas.all', 'uses' => 'AreaController@all']);
+    $router->get('/areas/{id}',['as'=> 'areas.get', 'uses' => 'AreaController@one']);
+    $router->post('/areas',['as'=> 'areas.post', 'uses' => 'AreaController@store']);
+    $router->put('/areas/{id}', ['as' => 'areas.put', 'uses' => 'AreaController@update']);
+    $router->delete('/areas/{id}', ['as' => 'areas.delete', 'uses' => 'AreaController@destroy']);
+    
+});
 
 $router->post('/authenticate', ['as' => 'auntentica.api', 'uses' => 'UsuarioAPIController@store']);
