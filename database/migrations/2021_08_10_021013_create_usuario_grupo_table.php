@@ -1,11 +1,10 @@
 <?php
 
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsuarioAreaTable extends Migration
+class CreateUsuarioGrupoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +13,16 @@ class CreateUsuarioAreaTable extends Migration
      */
     public function up()
     {
-        Schema::create('usuarioArea', function (Blueprint $table) {
+        Schema::create('usuario_grupo', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('id_usuario') -> nullable();
             $table->foreign('id_usuario')->unsigned()
                     ->references('id')            
                     ->on('usuario');
-            $table->unsignedBigInteger('id_area')-> nullable();
-            $table->foreign('id_area')->unsigned()
-                    ->references('id')            
-                    ->on('area');
-            $table->boolean('ajuda');
+                    $table->unsignedBigInteger('id_grupo') -> nullable();
+                    $table->foreign('id_grupo')->unsigned()
+                            ->references('id')            
+                            ->on('grupo'); 
             $table->timestamps();
         });
     }
@@ -35,6 +34,6 @@ class CreateUsuarioAreaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usuario_area');
+        Schema::dropIfExists('usuario_grupo');
     }
 }
