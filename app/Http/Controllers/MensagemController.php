@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Area;
+use App\Models\Mensagem;
 use Illuminate\Http\Request;
 
-class AreaController extends Controller
+class MensagemController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('apicheck');
@@ -15,9 +14,9 @@ class AreaController extends Controller
 
     public function all()
     {
-        $area =Area::all();
+        $mensagem =Mensagem::all();
 
-        return response()->json($area, 200);
+        return response()->json($mensagem, 200);
         
     }
 
@@ -25,9 +24,9 @@ class AreaController extends Controller
     public function one($id = null) 
     {
         if($id == null) return response() -> json(['error' => 'ID é obrigatorio'], 400);
-        $area = Area::find($id);
-        if($area == null) return response() -> json(['error' => 'entidade não encontrada'], 404);
-        return response()->json($area, 200);
+        $mensagem = Mensagem::find($id);
+        if($mensagem == null) return response() -> json(['error' => 'entidade não encontrada'], 404);
+        return response()->json($mensagem, 200);
     }
 
     /**
@@ -60,10 +59,10 @@ class AreaController extends Controller
     {
         if(!$request->isJson()) return response() -> json(['error' => 'dados devem ser enviados em formato JSON'], 415);
        // dd($request) -> json() -> all();
-        if(!$request->json()->has('area')) return response() -> json(['error' => 'entrada invalida, campo obrigatorio não enviado'], 400);
+        if(!$request->json()->has('nome')) return response() -> json(['error' => 'entrada invalida, campo obrigatorio não enviado'], 400);
         $dados = $request ->json()-> all();
-        $area = Area::create($dados);
-        return response() -> json($area, 201);
+        $mensagem = Mensagem::create($dados);
+        return response() -> json($mensagem, 201);
     }
 
     /**
@@ -95,15 +94,6 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
-        $area = Area::find($id);
-        if($area == null) return response()->json(['error' => 'entidade não encontrada'], 404);
-        $dados = $request->json()->all();
-        if($request->json()->has('area')) $area->area = $dados['area'];
-        if($area->save()) return response()->json($area, 200);
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -115,9 +105,9 @@ class AreaController extends Controller
     {
         if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
 
-        $area = Area::find($id);
-        if($area == null) return response()->json(['error' => 'registro não encontrado'], 404);
+        $mensagem = Mensagem::find($id);
+        if($mensagem == null) return response()->json(['error' => 'registro não encontrado'], 404);
 
-        if($area->delete()) return response()->json(['registro foi removido'], 200);
-    }
+        if($mensagem->delete()) return response()->json(['registro foi removido'], 200);
+}
 }

@@ -107,8 +107,6 @@ class UsuarioController extends Controller
         if($request->json()->has('email')) $usuario->email= $dados['email'];
         if($request->json()->has('numero')) $usuario->numero= $dados['numero'];
         if($request->json()->has('senha')) $usuario->senha= $dados['senha'];
-        if($request->json()->has('area')) $usuario->area= $dados['area'];
-        if($request->json()->has('ajudar')) $usuario->ajudar= $dados['ajudar'];
         if($usuario->save()) return response()->json($usuario, 200);
     }
 
@@ -127,4 +125,50 @@ class UsuarioController extends Controller
 
         if($usuario->delete()) return response()->json(['registro foi removido'], 200);
     }
+
+ 
+    public function usuarioAreaGet($id = null)
+    {
+        if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
+
+    $dados = UsuarioArea::where('id_usuario', $id) -> get();
+return response()->json($dados, 200);
+    }
+    
+
+    public function usuarioAreaPost(Request $request, $id = null)
+    {
+        if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
+     
+        if(!$request->isJson()) return response()->json(['error' => 'os dados devem ser enviados no formato JSON'], 415);
+    
+        if(!$request->json()->has('ajuda') || !$request->json()->has('id_area')){ return response()->json(['error' => 'campos obrigatórios não submetidos'], 400);}
+      
+        $idArea = $request['id_area'];
+        if(!$request->json()->has('id_area') == Area::find($idArea) ){return response()->json(['error' => 'Area não cadastrada'], 400);}
+    
+        $usuario = Usuario::find($id);
+        $dados=$request->json()->all();
+        $dados['id_usuario'] = $usuario->id;
+        $usuarioArea = UsuarioArea::create($dados);
+        return response()->json($usuarioArea, 201);
+    } 
+
+    public function usuarioAreaDelete(Request $request, $id = null)
+    {
+        if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
+
+        $idArea = $request['id_area'];
+       
+        if( UsuarioArea::where('id_area', $idArea)->delete())
+        {
+            return response()->json(['registro foi removido'], 200);
+        }
+        else
+        {
+            return response()->json(['error' => 'Area não cadastrada para o usuario'], 400);
+        }
+       
+    
+}
 }

@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Area;
+use App\Models\Material;
 use Illuminate\Http\Request;
 
-class AreaController extends Controller
+class MaterialController extends Controller
 {
 
     public function __construct()
@@ -15,9 +14,9 @@ class AreaController extends Controller
 
     public function all()
     {
-        $area =Area::all();
+        $material=Material::all();
 
-        return response()->json($area, 200);
+        return response()->json($material, 200);
         
     }
 
@@ -25,9 +24,9 @@ class AreaController extends Controller
     public function one($id = null) 
     {
         if($id == null) return response() -> json(['error' => 'ID é obrigatorio'], 400);
-        $area = Area::find($id);
-        if($area == null) return response() -> json(['error' => 'entidade não encontrada'], 404);
-        return response()->json($area, 200);
+        $material = Material::find($id);
+        if($material == null) return response() -> json(['error' => 'entidade não encontrada'], 404);
+        return response()->json($material, 200);
     }
 
     /**
@@ -60,10 +59,10 @@ class AreaController extends Controller
     {
         if(!$request->isJson()) return response() -> json(['error' => 'dados devem ser enviados em formato JSON'], 415);
        // dd($request) -> json() -> all();
-        if(!$request->json()->has('area')) return response() -> json(['error' => 'entrada invalida, campo obrigatorio não enviado'], 400);
+        if(!$request->json()->has('nome')) return response() -> json(['error' => 'entrada invalida, campo obrigatorio não enviado'], 400);
         $dados = $request ->json()-> all();
-        $area = Area::create($dados);
-        return response() -> json($area, 201);
+        $material = Material::create($dados);
+        return response() -> json($material, 201);
     }
 
     /**
@@ -98,11 +97,12 @@ class AreaController extends Controller
     public function update(Request $request, $id)
     {
         if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
-        $area = Area::find($id);
-        if($area == null) return response()->json(['error' => 'entidade não encontrada'], 404);
+        $material = Material::find($id);
+        if($material == null) return response()->json(['error' => 'entidade não encontrada'], 404);
         $dados = $request->json()->all();
-        if($request->json()->has('area')) $area->area = $dados['area'];
-        if($area->save()) return response()->json($area, 200);
+        if($request->json()->has('descrição')) $material->descricao = $dados['nome'];
+        if($request->json()->has('local_arquivo')) $material->local_arquivo= $dados['email'];
+        if($material->save()) return response()->json($material, 200);
     }
 
     /**
@@ -115,9 +115,9 @@ class AreaController extends Controller
     {
         if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
 
-        $area = Area::find($id);
-        if($area == null) return response()->json(['error' => 'registro não encontrado'], 404);
+        $material = Material::find($id);
+        if($material == null) return response()->json(['error' => 'registro não encontrado'], 404);
 
-        if($area->delete()) return response()->json(['registro foi removido'], 200);
+        if($material->delete()) return response()->json(['registro foi removido'], 200);
     }
 }
