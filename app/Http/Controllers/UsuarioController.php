@@ -145,7 +145,15 @@ return response()->json($dados, 200);
         if(!$request->json()->has('ajuda') || !$request->json()->has('id_area')){ return response()->json(['error' => 'campos obrigatórios não submetidos'], 400);}
       
         $idArea = $request['id_area'];
-        if(!$request->json()->has('id_area') == Area::find($idArea) ){return response()->json(['error' => 'Area não cadastrada'], 400);}
+        if(!$request->json()->has('id_area') == Area::find($idArea) )
+        {
+            return response()->json(['error' => 'Area não cadastrada'], 400);
+        }
+
+        if($request->json()->has('id_area') == UsuarioArea::where('id_area', $idArea ))
+        {
+            return response()->json(['error' => 'Area já cadastrada para usuario'], 400);
+        }
     
         $usuario = Usuario::find($id);
         $dados=$request->json()->all();

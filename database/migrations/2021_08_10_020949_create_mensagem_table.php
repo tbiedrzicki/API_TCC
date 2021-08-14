@@ -23,7 +23,7 @@ class CreateMensagemTable extends Migration
             $table->foreign('id_destinatario')->unsigned()
                     ->references('id')            
                     ->on('usuario');                    
-            $table-> text('texto');
+            $table-> string('texto');
             $table->boolean('lido');
             $table->timestamps();
         });
