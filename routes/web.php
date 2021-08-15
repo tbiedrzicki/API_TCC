@@ -30,9 +30,6 @@ $router->group(['middleware' => 'apicheck'], function() use ($router){
     $router->post('/usuarios/{id}/areas',['as'=> 'usuarioarea.post', 'uses' => 'UsuarioController@UsuarioAreaPost']);
     $router->delete('/usuarios/{id}/areas', ['as' => 'usuarioarea.delete', 'uses' => 'UsuarioController@UsuarioAreaDelete']);
 
-    $router->get('/usuarios/{id}/mensagem',['as'=> 'mensagem.get', 'uses' => 'UsuarioController@one']);
-    $router->post('/usuarios{id}/mensagem',['as'=> 'mensagem.post', 'uses' => 'UsuarioController@store']);
-    $router->put('/usuarios/{id}/mensagem', ['as' => 'mensagem.put', 'uses' => 'UsuarioController@update']);
 
     //rotas funções area    
     $router->get('/areas',['as'=> 'areas.all', 'uses' => 'AreaController@all']);
@@ -41,12 +38,19 @@ $router->group(['middleware' => 'apicheck'], function() use ($router){
     $router->put('/areas/{id}', ['as' => 'areas.put', 'uses' => 'AreaController@update']);
     $router->delete('/areas/{id}', ['as' => 'areas.delete', 'uses' => 'AreaController@destroy']);
     
+    //rotas funções materiais
+    $router->get('/materiais',['as'=> 'materiais.all', 'uses' => 'MaterialController@all']);
+    $router->get('/materiais/{id}',['as'=> 'materiais.get', 'uses' => 'MaterialController@one']);
+    $router->post('/materiais',['as'=> 'materiais.post', 'uses' => 'MaterialController@store']);
+    $router->put('/materiais/{id}', ['as' => 'materiais.put', 'uses' => 'MaterialController@update']);
+    $router->delete('/materiais/{id}', ['as' => 'materiais.delete', 'uses' => 'MaterialController@destroy']);
 
     //rotas funções mensagem 
     $router->get('/mensagens',['as'=> 'mensagens.all', 'uses' => 'MensagemController@all']);
     $router->post('/mensagens',['as'=> 'mensagens.post', 'uses' => 'MensagemController@store']);
     $router->put('/mensagens/{id}', ['as' => 'mensagens.put', 'uses' => 'MensagemController@update']);
     
+
 });
 
 $router->post('/authenticate', ['as' => 'autentica.api', 'uses' => 'UsuarioAPIController@store']);

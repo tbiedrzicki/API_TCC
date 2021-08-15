@@ -58,8 +58,7 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
         if(!$request->isJson()) return response() -> json(['error' => 'dados devem ser enviados em formato JSON'], 415);
-       // dd($request) -> json() -> all();
-        if(!$request->json()->has('nome')) return response() -> json(['error' => 'entrada invalida, campo obrigatorio não enviado'], 400);
+        if(!$request->json()->has('local_arquivo')) return response() -> json(['error' => 'entrada invalida, campo obrigatorio não enviado'], 400);
         $dados = $request ->json()-> all();
         $material = Material::create($dados);
         return response() -> json($material, 201);
@@ -100,8 +99,8 @@ class MaterialController extends Controller
         $material = Material::find($id);
         if($material == null) return response()->json(['error' => 'entidade não encontrada'], 404);
         $dados = $request->json()->all();
-        if($request->json()->has('descrição')) $material->descricao = $dados['nome'];
-        if($request->json()->has('local_arquivo')) $material->local_arquivo= $dados['email'];
+        if($request->json()->has('descrição')) $material->descrição = $dados['descrição'];
+        if($request->json()->has('local_arquivo')) $material->local_arquivo= $dados['local_arquivo'];
         if($material->save()) return response()->json($material, 200);
     }
 
