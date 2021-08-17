@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class grupo extends Model
 {    protected $table = 'grupo';
-     protected $fillable = ['id_usuario','descrição','datas'];
+     protected $fillable = ['id_usuario_propietario','descrição','datas'];
 }

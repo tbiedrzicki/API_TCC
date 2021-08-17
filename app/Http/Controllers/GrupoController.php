@@ -59,7 +59,7 @@ class GrupoController extends Controller
     {
         if(!$request->isJson()) return response() -> json(['error' => 'dados devem ser enviados em formato JSON'], 415);
        // dd($request) -> json() -> all();
-        if(!$request->json()->has('nome')) return response() -> json(['error' => 'entrada invalida, campo obrigatorio não enviado'], 400);
+        if(!$request->json()->has('descrição')) return response() -> json(['error' => 'entrada invalida, campo obrigatorio não enviado'], 400);
         $dados = $request ->json()-> all();
         $grupo = Grupo::create($dados);
         return response() -> json($grupo, 201);

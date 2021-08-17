@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use App\Models\UsuarioArea;
 use App\Models\Area;
+use App\Models\grupo;
+use App\Models\UsuarioGrupo;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -149,12 +151,12 @@ return response()->json($dados, 200);
         {
             return response()->json(['error' => 'Area não cadastrada'], 400);
         }
-
-        if($request->json()->has('id_area') == UsuarioArea::where('id_area', $idArea ))
+/*
+        if($request->json()->has('id_area') == UsuarioArea::where('id_area', $idArea || 'id_usuario', $id))
         {
             return response()->json(['error' => 'Area já cadastrada para usuario'], 400);
         }
-    
+    */
         $usuario = Usuario::find($id);
         $dados=$request->json()->all();
         $dados['id_usuario'] = $usuario->id;
@@ -178,5 +180,52 @@ return response()->json($dados, 200);
         }
        
     
+    }
+    public function usuarioGrupoGet($id = null)
+    {
+    if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
+    $dados = UsuarioGrupo::where('id_usuario', $id) -> get();
+    return response()->json($dados, 200);
+    }
+
+    public function usuarioGrupoPost(Request $request, $id = null)
+    {
+    if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
+ 
+    if(!$request->isJson()) return response()->json(['error' => 'os dados devem ser enviados no formato JSON'], 415);
+
+    if( !$request->json()->has('id_grupo')){ return response()->json(['error' => 'campos obrigatórios não submetidos'], 400);}
+  
+    $idGrupo = $request['id_grupo'];
+    if(!$request->json()->has('id_grupo') == grupo::find($idGrupo) )
+    {
+        return response()->json(['error' => 'Grupo não cadastrado'], 400);
+    }
+    /*
+    if($request->json()->has('id_grupo') == UsuarioGrupo::where('id_grupo', $idGrupo ))
+    {
+        return response()->json(['error' => 'grupo já cadastrado para usuario'], 400);
+    }
+*/
+    $usuario = Usuario::find($id);
+    $dados=$request->json()->all();
+    $dados['id_usuario'] = $usuario->id;
+    $usuarioGrupo = UsuarioGrupo::create($dados);
+    return response()->json($usuarioGrupo, 201);
+} 
+public function usuarioGrupoDelete(Request $request, $id = null)
+{
+    if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
+    $idGrupo = $request['id_grupo'];
+   
+    if( UsuarioGrupo::where('id_grupo', $idGrupo)->delete())
+    {
+        return response()->json(['registro foi removido'], 200);
+    }
+    else
+    {
+        return response()->json(['error' => 'Grupo não cadastrado para o usuario'], 400);
+    }
+   
 }
 }

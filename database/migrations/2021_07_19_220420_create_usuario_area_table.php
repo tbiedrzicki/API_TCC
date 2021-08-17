@@ -14,7 +14,7 @@ class CreateUsuarioAreaTable extends Migration
      */
     public function up()
     {
-        Schema::create('usuarioArea', function (Blueprint $table) {
+        Schema::create('usuario_Area', function (Blueprint $table) {
             $table->unsignedBigInteger('id_usuario') -> nullable();
             $table->foreign('id_usuario')->unsigned()
                     ->references('id')            

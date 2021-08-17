@@ -15,8 +15,8 @@ class CreateGrupoTable extends Migration
     {
         Schema::create('grupo', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_usuario') -> nullable();
-            $table->foreign('id_usuario')->unsigned()
+            $table->unsignedBigInteger('id_usuario_propietario') -> nullable();
+            $table->foreign('id_usuario_propietario')->unsigned()
                     ->references('id')            
                     ->on('usuario');
             $table->string('descrição');
