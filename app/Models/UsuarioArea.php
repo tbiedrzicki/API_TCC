@@ -13,8 +13,8 @@ class UsuarioArea extends Model
     public function getHateoas()
     {
         return [
-            "self" => URL::to('usuarios/' . $this->id . '/areas'),
-            "usuarios" => URL::to('usuarios/' . $this->id),
+            "self" => URL::to('usuarios/' . $this->id_usuario . '/areas'),
+            "usuarios" => URL::to('usuarios/' . $this->id_usuario),
         ];
     }
 }

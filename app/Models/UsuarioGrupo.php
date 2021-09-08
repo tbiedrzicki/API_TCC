@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\URL;
 class UsuarioGrupo extends Model
 {
     protected $table = 'usuarioGrupo';
-    protected $fillable = ['id_usuario','id_grupo'];
-  
+    protected $fillable = ['id_usuario', 'id_grupo'];
+
     public function getHateoas()
     {
         return [
-            "self" => URL::to('usuarios/' . $this->id . '/grupos'),
-            "usuarios" => URL::to('usuarios/' . $this->id),
+            "self" => URL::to('usuarios/' . $this->id_usuario . '/grupo'),
+            "usuarios" => URL::to('usuarios/' . $this->id_usuario),
         ];
     }
 }
