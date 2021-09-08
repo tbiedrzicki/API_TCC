@@ -25,12 +25,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '31e08a78cbdb6e0bc16f191894451dfab3e4c090',
     'name' => 'laravel/lumen',
   ),
   'versions' => 
@@ -66,6 +66,15 @@ private static $installed = array (
       array (
         0 => '*',
       ),
+    ),
+    'doctrine/annotations' => 
+    array (
+      'pretty_version' => '1.13.2',
+      'version' => '1.13.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5b668aef16090008790395c02c893b1ba13f7e08',
     ),
     'doctrine/inflector' => 
     array (
@@ -382,6 +391,24 @@ private static $installed = array (
       ),
       'reference' => 'c8b6c1871e852646e186723005a5ec3d1f3ac4e4',
     ),
+    'jms/metadata' => 
+    array (
+      'pretty_version' => '2.5.1',
+      'version' => '2.5.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a995e6cef6d6f56a6226e1616a519630e2ef0aeb',
+    ),
+    'jms/serializer' => 
+    array (
+      'pretty_version' => '3.14.0',
+      'version' => '3.14.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'bf371f55d8137fec4ff096bd45ff19e2db02ac4c',
+    ),
     'kodova/hamcrest-php' => 
     array (
       'replaced' => 
@@ -391,12 +418,12 @@ private static $installed = array (
     ),
     'laravel/lumen' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '31e08a78cbdb6e0bc16f191894451dfab3e4c090',
     ),
     'laravel/lumen-framework' => 
     array (
@@ -544,6 +571,15 @@ private static $installed = array (
       ),
       'reference' => 'be1996ed8adc35c3fd795488a653f4b518be70ea',
     ),
+    'phpstan/phpdoc-parser' => 
+    array (
+      'pretty_version' => '0.5.6',
+      'version' => '0.5.6.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'fac86158ffc7392e49636f77e63684c026df43b8',
+    ),
     'phpunit/php-code-coverage' => 
     array (
       'pretty_version' => '9.2.6',
@@ -597,6 +633,22 @@ private static $installed = array (
       array (
       ),
       'reference' => 'fb9b8333f14e3dce976a60ef6a7e05c7c7ed8bfb',
+    ),
+    'psr/cache' => 
+    array (
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '213f9dbc5b9bfbc4f8db86d2838dc968752ce13b',
+    ),
+    'psr/cache-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0|2.0',
+      ),
     ),
     'psr/container' => 
     array (
@@ -655,6 +707,13 @@ private static $installed = array (
       array (
       ),
       'reference' => '408d5eafb83c57f6365a3ca330ff23aa4a5fa39b',
+    ),
+    'psr/simple-cache-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
     ),
     'psy/psysh' => 
     array (
@@ -834,6 +893,31 @@ private static $installed = array (
       ),
       'reference' => 'c6c1022351a901512170118436c764e473f6de8c',
     ),
+    'symfony/cache' => 
+    array (
+      'pretty_version' => 'v5.3.7',
+      'version' => '5.3.7.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '864867b13bd67347497ce956f4b253f8fe18b80c',
+    ),
+    'symfony/cache-contracts' => 
+    array (
+      'pretty_version' => 'v2.4.0',
+      'version' => '2.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c0446463729b89dd4fa62e9aeecc80287323615d',
+    ),
+    'symfony/cache-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0|2.0',
+      ),
+    ),
     'symfony/console' => 
     array (
       'pretty_version' => 'v5.3.2',
@@ -885,6 +969,15 @@ private static $installed = array (
       array (
         0 => '2.0',
       ),
+    ),
+    'symfony/expression-language' => 
+    array (
+      'pretty_version' => 'v5.3.7',
+      'version' => '5.3.7.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'fe696e2669cb47507e5635223ac4b64500339658',
     ),
     'symfony/finder' => 
     array (
@@ -1064,6 +1157,15 @@ private static $installed = array (
       ),
       'reference' => '905a22c68b292ffb6f20d7636c36b220d1fba5ae',
     ),
+    'symfony/var-exporter' => 
+    array (
+      'pretty_version' => 'v5.3.7',
+      'version' => '5.3.7.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2ded877ab0574d8b646f4eb3f716f8ed7ee7f392',
+    ),
     'theseer/tokenizer' => 
     array (
       'pretty_version' => '1.2.0',
@@ -1099,6 +1201,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
+    ),
+    'willdurand/hateoas' => 
+    array (
+      'pretty_version' => '3.7.0',
+      'version' => '3.7.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '63e255bb762fd6fa79d973d99ac669daab56c638',
     ),
   ),
 );

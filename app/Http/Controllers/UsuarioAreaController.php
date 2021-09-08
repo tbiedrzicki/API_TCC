@@ -32,7 +32,7 @@ class UsuarioAreaController extends Controller
     {
         //
     }
-    public function destroy( Area $area)
+    public function destroy(Area $area)
     {
         //
     }

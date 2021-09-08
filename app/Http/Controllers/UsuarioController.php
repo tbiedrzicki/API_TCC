@@ -6,6 +6,7 @@ use App\Models\Usuario;
 use App\Models\UsuarioArea;
 use App\Models\Area;
 use App\Models\grupo;
+use App\Models\Mensagem;
 use App\Models\UsuarioGrupo;
 use Illuminate\Http\Request;
 
@@ -20,8 +21,13 @@ class UsuarioController extends Controller
     public function all()
     {
         $usuario =Usuario::all();
-
-        return response()->json($usuario, 200);
+        $response = $usuario->toArray();
+        $i = 0;
+        while ($i < count($response)) {
+            $response[$i]['links'] = $usuario[$i]->getallHateoas();
+            $i++;
+        }
+       return response()->json($response, 200);
         
     }
 
@@ -31,7 +37,10 @@ class UsuarioController extends Controller
         if($id == null) return response() -> json(['error' => 'ID é obrigatorio'], 400);
         $usuario = Usuario::find($id);
         if($usuario == null) return response() -> json(['error' => 'entidade não encontrada'], 404);
-        return response()->json($usuario, 200);
+        $response = $usuario->toArray();
+         $response['links'] = $usuario->getHateoas();
+         return response()->json($response, 200);
+    
     }
 
     /**
@@ -63,11 +72,14 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         if(!$request->isJson()) return response() -> json(['error' => 'dados devem ser enviados em formato JSON'], 415);
-       // dd($request) -> json() -> all();
         if(!$request->json()->has('nome')) return response() -> json(['error' => 'entrada invalida, campo obrigatorio não enviado'], 400);
         $dados = $request ->json()-> all();
+        $senha = $request ->json() -> has('senha');
+        $dados['senha'] = md5($senha);
         $usuario = Usuario::create($dados);
-        return response() -> json($usuario, 201);
+        $response = $usuario->toArray();
+        $response['links'] = $usuario->getHateoas();
+        return response()->json($response, 201);
     }
 
     /**
@@ -108,8 +120,12 @@ class UsuarioController extends Controller
         if($request->json()->has('nome')) $usuario->nome = $dados['nome'];
         if($request->json()->has('email')) $usuario->email= $dados['email'];
         if($request->json()->has('numero')) $usuario->numero= $dados['numero'];
-        if($request->json()->has('senha')) $usuario->senha= $dados['senha'];
-        if($usuario->save()) return response()->json($usuario, 200);
+        if($request->json()->has('senha')) $usuario->senha= md5($dados['senha']);
+        if($usuario->save()) 
+        $response = $usuario->toArray();
+        $response['links'] = $usuario->getHateoas();
+       return response()->json($response, 201);
+        //return response()->json($usuario, 200);
     }
 
     /**
@@ -133,8 +149,11 @@ class UsuarioController extends Controller
     {
         if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
 
-    $dados = UsuarioArea::where('id_usuario', $id) -> get();
-return response()->json($dados, 200);
+        $dados = Usuarioarea::where('id_usuario', $id) -> get();
+        $response = $dados->toArray();
+        $response['links'] = $dados->getHateoas();
+        return response()->json($response, 200);
+        // return response()->json($dados, 200);
     }
     
 
@@ -161,7 +180,10 @@ return response()->json($dados, 200);
         $dados=$request->json()->all();
         $dados['id_usuario'] = $usuario->id;
         $usuarioArea = UsuarioArea::create($dados);
-        return response()->json($usuarioArea, 201);
+        $response = $usuarioArea->toArray();
+        $response['links'] = $usuarioArea->getHateoas();
+        return response()->json($response, 201);
+        //return response()->json($usuarioArea, 201);
     } 
 
     public function usuarioAreaDelete(Request $request, $id = null)
@@ -184,7 +206,12 @@ return response()->json($dados, 200);
     public function usuarioGrupoGet($id = null)
     {
     if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
-    $dados = UsuarioGrupo::where('id_usuario', $id) -> get();
+   $dados = UsuarioGrupo::where('id_usuario', $id) -> get();
+    $response = UsuarioGrupo::find($id);
+    //$response = $dados->toArray();
+    $response['links'] = $response->getHateoas();
+    $dados = $response;
+   //return response()->json($response, 200);
     return response()->json($dados, 200);
     }
 
@@ -211,7 +238,10 @@ return response()->json($dados, 200);
     $dados=$request->json()->all();
     $dados['id_usuario'] = $usuario->id;
     $usuarioGrupo = UsuarioGrupo::create($dados);
-    return response()->json($usuarioGrupo, 201);
+   $response = $usuarioGrupo->toArray();
+  $response['links'] = $usuarioGrupo->getHateoas();
+  return response()->json($response, 201);
+    // return response()->json($usuarioGrupo, 201);
 } 
 public function usuarioGrupoDelete(Request $request, $id = null)
 {
@@ -228,4 +258,13 @@ public function usuarioGrupoDelete(Request $request, $id = null)
     }
    
 }
+public function mensagemUserGet($id = null)
+ {
+    if($id == null) return response()->json(['error' => 'id na URL é obrigatória'], 400);
+    $dados = Mensagem::where('id_remetente', $id) -> get();
+    $response = Mensagem::find($dados);
+    $response['links'] = $response->getHateoas();
+    $dados = $response;
+    return response()->json($dados, 200);
+     }
 }

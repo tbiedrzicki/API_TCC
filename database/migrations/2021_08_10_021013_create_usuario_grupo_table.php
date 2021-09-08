@@ -13,7 +13,7 @@ class CreateUsuarioGrupoTable extends Migration
      */
     public function up()
     {
-        Schema::create('usuario_grupo', function (Blueprint $table) {
+        Schema::create('usuarioGrupo', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_usuario') -> nullable();
             $table->foreign('id_usuario')->unsigned()

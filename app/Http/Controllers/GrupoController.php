@@ -15,8 +15,14 @@ class GrupoController extends Controller
     public function all()
     {
         $grupo =Grupo::all();
-
-        return response()->json($grupo, 200);
+        $response = $grupo->toArray();
+        $i = 0;
+        while ($i < count($response)) {
+            $response[$i]['links'] = $grupo[$i]->getallHateoas();
+            $i++;
+        }
+        return response()->json($response, 200);
+       // return response()->json($grupo, 200);
         
     }
 
@@ -26,7 +32,10 @@ class GrupoController extends Controller
         if($id == null) return response() -> json(['error' => 'ID é obrigatorio'], 400);
         $grupo = Grupo::find($id);
         if($grupo == null) return response() -> json(['error' => 'entidade não encontrada'], 404);
-        return response()->json($grupo, 200);
+        $response = $grupo->toArray();
+        $response['links'] = $grupo->getHateoas();
+        return response()->json($response, 200);
+        //return response()->json($grupo, 200);
     }
 
     /**
@@ -62,7 +71,10 @@ class GrupoController extends Controller
         if(!$request->json()->has('descrição')) return response() -> json(['error' => 'entrada invalida, campo obrigatorio não enviado'], 400);
         $dados = $request ->json()-> all();
         $grupo = Grupo::create($dados);
-        return response() -> json($grupo, 201);
+        $response = $grupo->toArray();
+         $response['links'] = $grupo->getHateoas();
+         return response()->json($response, 201);
+        // return response() -> json($grupo, 201);
     }
 
     /**
@@ -104,7 +116,11 @@ class GrupoController extends Controller
         if($request->json()->has('email')) $grupo->email= $dados['email'];
         if($request->json()->has('numero')) $grupo->numero= $dados['numero'];
         if($request->json()->has('senha')) $grupo->senha= $dados['senha'];
-        if($grupo->save()) return response()->json($grupo, 200);
+        if($grupo->save()) 
+        $response = $grupo->toArray();
+        $response['links'] = $grupo->getHateoas();
+       return response()->json($response, 200);
+        //return response()->json($grupo, 200);
     }
 
     /**
