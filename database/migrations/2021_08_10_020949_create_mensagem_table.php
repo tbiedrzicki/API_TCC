@@ -15,15 +15,15 @@ class CreateMensagemTable extends Migration
     {
         Schema::create('mensagem', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_remetente') -> nullable();
+            $table->unsignedBigInteger('id_remetente')->nullable();
             $table->foreign('id_remetente')->unsigned()
-                    ->references('id')            
-                    ->on('usuario');
-            $table->unsignedBigInteger('id_destinatario') -> nullable();
+                ->references('id')
+                ->on('usuario');
+            $table->unsignedBigInteger('id_destinatario')->nullable();
             $table->foreign('id_destinatario')->unsigned()
-                    ->references('id')            
-                    ->on('usuario');                    
-            $table-> string('texto');
+                ->references('id')
+                ->on('usuario');
+            $table->string('texto');
             $table->boolean('lido');
             $table->timestamps();
         });

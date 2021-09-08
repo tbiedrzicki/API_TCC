@@ -62,7 +62,7 @@ $router->group(['middleware' => 'apicheck'], function () use ($router) {
     $router->get('/mensagens/{id}', ['as' => 'mensagens.one', 'uses' => 'MensagemController@one']);
     $router->post('/mensagens', ['as' => 'mensagens.post', 'uses' => 'MensagemController@store']);
     $router->put('/mensagens/{id}', ['as' => 'mensagens.put', 'uses' => 'MensagemController@update']);
-    
+
     $router->get('/usuarios/{id}/mensagensRem', ['as' => 'mensagens.get', 'uses' => 'UsuarioController@mensagemUserRemGet']);
     $router->get('/usuarios/{id}/mensagensDest', ['as' => 'mensagens.get', 'uses' => 'UsuarioController@mensagemUserDesGet']);
 });

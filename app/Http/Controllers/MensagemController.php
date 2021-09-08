@@ -15,13 +15,13 @@ class MensagemController extends Controller
     public function all()
     {
         $mensagem = Mensagem::all();
-   $response = $mensagem->toArray();
-   $i = 0;
-   while ($i < count($response)) {
-       $response[$i]['links'] = $mensagem[$i]->getallHateoas();
-       $i++;
-   }
-   return response()->json($response, 200);
+        $response = $mensagem->toArray();
+        $i = 0;
+        while ($i < count($response)) {
+            $response[$i]['links'] = $mensagem[$i]->getallHateoas();
+            $i++;
+        }
+        return response()->json($response, 200);
     }
     public function one($id = null)
     {
@@ -64,11 +64,10 @@ class MensagemController extends Controller
 
         if (!$request->json()->has('id_destinatario')) return response()->json(['error' => 'entrada invalida, campo obrigatorio não enviado'], 400);
         $dados = $request->json()->all();
-        $mensagem =Mensagem::create($dados);
+        $mensagem = Mensagem::create($dados);
         $response = $mensagem->toArray();
         $response['links'] = $mensagem->getHateoas();
         return response()->json($response, 201);
-    
     }
 
     /**
@@ -100,8 +99,8 @@ class MensagemController extends Controller
         if ($mensagem == null) return response()->json(['error' => 'entidade não encontrada'], 404);
         $dados = $request->json()->all();
         if ($request->json()->has('lido')) $mensagem->lido = $dados['lido'];
-        if ($mensagem->save()) 
-        $response = $mensagem->toArray();
+        if ($mensagem->save())
+            $response = $mensagem->toArray();
         $response['links'] = $mensagem->getHateoas();
         return response()->json($response, 200);
     }

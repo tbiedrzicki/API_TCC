@@ -15,14 +15,14 @@ class CreateUsuarioAreaTable extends Migration
     public function up()
     {
         Schema::create('usuarioArea', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_usuario') -> nullable();
+            $table->unsignedBigInteger('id_usuario')->nullable();
             $table->foreign('id_usuario')->unsigned()
-                    ->references('id')            
-                    ->on('usuario');
-            $table->unsignedBigInteger('id_area')-> nullable();
+                ->references('id')
+                ->on('usuario');
+            $table->unsignedBigInteger('id_area')->nullable();
             $table->foreign('id_area')->unsigned()
-                    ->references('id')            
-                    ->on('area');
+                ->references('id')
+                ->on('area');
             $table->boolean('ajuda');
             $table->timestamps();
         });

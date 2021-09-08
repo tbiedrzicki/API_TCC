@@ -14,11 +14,11 @@ class CreateUsuarioAPITable extends Migration
     public function up()
     {
         Schema::create('usuario_api', function (Blueprint $table) {
-             $table->id();
-             $table->string('email',100);
-             $table->string('senha',40);
-             $table->string('token', 60);
-             $table->timestamps();
+            $table->id();
+            $table->string('email', 100);
+            $table->string('senha', 40);
+            $table->string('token', 60);
+            $table->timestamps();
         });
     }
 
